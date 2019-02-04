@@ -9,7 +9,7 @@ class AdminLoginController extends Controller
 {
    
     public function __construct(){
-        $this->middleware('guest:admin');
+        $this->middleware('guest:admin',['except' =>['adminLogout']]);
     }
     public function showLoginForm(){
         return view('auth.admin-login');
@@ -35,4 +35,16 @@ class AdminLoginController extends Controller
   // return"false dvfdfv";;
         
     }
+
+    //public function adminLogout(Request $request)
+    public function adminLogout()
+    {
+        //  $this->guard()->logout();
+        //  not remove all the seesion cz other user need to keep session
+        //  $request->session()->invalidate();
+
+       Auth::guard('admin')->logout();
+        return redirect('/');
+    }
+
 }
